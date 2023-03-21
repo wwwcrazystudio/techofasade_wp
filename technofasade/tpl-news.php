@@ -5,7 +5,7 @@
 get_header();
 
 $args = array(
-    'posts_per_page' => 1,
+    'posts_per_page' => 18,
     'paged' => get_query_var('page'),
     'post_type' => 'post',
 );
@@ -22,7 +22,7 @@ $query = new WP_Query($args); ?>
 
             <?php if ($query->have_posts()) : ?>
                 <div class="news-page__content">
-                    <ul class="news-page__list">
+                    <ul class="news-page__list" data-container>
                         <?php while ($query->have_posts()) :
                             $query->the_post(); ?>
                             <li class="news__news-item news-item" data-aos="fade-right" data-aos-delay="<?= $query->current_post * 150; ?>">
@@ -33,7 +33,7 @@ $query = new WP_Query($args); ?>
                     </ul>
 
                     <?php if ($query->max_num_pages > 1) : ?>
-                        <button class="news-page__load-more">
+                        <button class="news-page__load-more"  data-load-more data-action="post_load_more" data-page="<?=get_query_var('page');?>">
                             Показать еще
                         </button>
                         <?php the_pagination('news-page', $query); ?>

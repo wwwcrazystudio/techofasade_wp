@@ -5,7 +5,7 @@
 get_header();
 
 $args = array(
-    'posts_per_page' => 1,
+    'posts_per_page' => 14,
     'paged' => get_query_var('page'),
     'post_type' => 'portfolio',
 );
@@ -23,7 +23,7 @@ $query = new WP_Query($args); ?>
 
             <?php if ($query->have_posts()) : ?>
                 <div class="portfolio-page__gallery gallery">
-                    <ul class="gallery__list">
+                    <ul class="gallery__list" data-container>
                         <?php while ($query->have_posts()) :
                             $query->the_post(); ?>
                             <li class="gallery__item">
@@ -39,7 +39,7 @@ $query = new WP_Query($args); ?>
                     </ul>
 
                     <?php if ($query->max_num_pages > 1) : ?>
-                        <button class="portfolio-page__load-more">
+                        <button class="portfolio-page__load-more"  data-load-more data-action="portfolio_load_more" data-page="<?=get_query_var('page');?>">
                             Показать еще
                         </button>
                         <?php the_pagination('portfolio-page', $query); ?>

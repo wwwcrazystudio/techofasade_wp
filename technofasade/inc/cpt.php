@@ -91,4 +91,33 @@ function register_post_types(){
 		'query_var'           => true,
 	] );
 
+	register_post_type( 'certificate', [
+		'label'  => null,
+		'labels' => [
+			'name'               => 'Сертификаты и документация', 
+			'singular_name'      => 'Сертификат и документация', 
+			'add_new'            => 'Добавить', 
+			'add_new_item'       => 'Добавление', 
+			'edit_item'          => 'Редактирование',
+			'new_item'           => 'Новый', 
+			'view_item'          => 'Смотреть', 
+			'search_items'       => 'Искать',
+			'not_found'          => 'Не найдено', 
+			'not_found_in_trash' => 'Не найдено в корзине', 
+			'parent_item_colon'  => '', 
+			'menu_name'          => 'Сертификаты и документация',
+		],
+		'description'            => '',
+		'public'                 => true,
+		'show_in_menu'           => null, 
+		'menu_position'       => null,
+		'menu_icon'           => 'dashicons-media-document',
+    	'hierarchical'        => false,
+		'supports'            => [ 'title', 'thumbnail'], // 'title','editor','author','thumbnail','excerpt','trackbacks','custom-fields','comments','revisions','page-attributes','post-formats'
+		'taxonomies'          => [],
+		'has_archive'         => true,
+		'rewrite'             => true,
+		'query_var'           => true,
+	] );
+
 }

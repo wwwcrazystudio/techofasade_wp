@@ -33,7 +33,7 @@ function the_breadcrumbs($prefix)
                 </a>
             </li>
 
-            <?php if (is_singular()) :
+            <?php if (is_singular() && !is_singular('page')) :
                 $type = get_post_type(get_queried_object_id());
                 $typeObj = get_post_type_object($type); ?>
                 <li class="breadcrumbs__item">
@@ -90,4 +90,24 @@ function the_pagination($prefix, $query)
     </nav>
 
 <?php
+}
+
+
+add_action('template_redirect', 'redirect_unavailable_singular_posts');
+function redirect_unavailable_singular_posts()
+{
+    if (is_singular('testimonial')) {
+        wp_redirect(home_url(), 302);
+        exit;
+    }
+
+    if (is_singular('portfolio')) {
+        wp_redirect(home_url(), 302);
+        exit;
+    }
+
+    if (is_singular('certificate')) {
+        wp_redirect(home_url(), 302);
+        exit;
+    }
 }

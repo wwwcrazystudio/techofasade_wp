@@ -1,4 +1,5 @@
 <?php
+
 /**
  * The template for displaying all pages
  *
@@ -15,24 +16,39 @@
 get_header();
 ?>
 
-	<main id="primary" class="site-main">
+<div class="page">
+	<main class="page__main-content">
+		<div class="container">
+			<?php the_breadcrumbs('page'); ?>
+			<h1 class="page__heading"><?php the_title(); ?></h1>
 
-		<?php
-		while ( have_posts() ) :
-			the_post();
+			<div class="page__wrap">
+				<aside class="page__sidebar">
+					<div class="page__sidebar-wrap">
+						<nav class="page__nav-menu nav-menu">
+							<ul class="nav-menu__list" data-navbar>
+							</ul>
+							<ul class="nav-menu__list">
+								<li class="nav-menu__item">
+									<a class="nav-menu__link" href="#contacts">
+										Отправить заявку
+									</a>
+								</li>
+							</ul>
+						</nav>
+					</div>
+				</aside>
+				<div class="page__content" data-content>
+					<?php the_content(); ?>
+				</div>
+			</div>
+		</div>
+	</main>
 
-			get_template_part( 'template-parts/content', 'page' );
-
-			// If comments are open or we have at least one comment, load up the comment template.
-			if ( comments_open() || get_comments_number() ) :
-				comments_template();
-			endif;
-
-		endwhile; // End of the loop.
-		?>
-
-	</main><!-- #main -->
+	<section class="page__contacts contacts" id="contacts">
+		<?php get_template_part('template-parts/content', 'contacts'); ?>
+	</section>
+</div>
 
 <?php
-get_sidebar();
 get_footer();

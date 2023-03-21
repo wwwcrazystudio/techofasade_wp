@@ -22,7 +22,10 @@ function techofasade_setup()
 
 	register_nav_menus(
 		array(
-			'menu-1' => esc_html__('Primary', 'techofasade'),
+			'main-menu-1' => esc_html__('Главное меню 1', 'techofasade'),
+			'main-menu-2' => esc_html__('Главное меню 2', 'techofasade'),
+			'footer-menu-1' => esc_html__('Футер меню 1', 'techofasade'),
+			'footer-menu-2' => esc_html__('Футер меню 2', 'techofasade'),
 		)
 	);
 
@@ -47,9 +50,14 @@ function techofasade_scripts()
 	wp_enqueue_style('techofasade-style', get_stylesheet_uri(), array(), _S_VERSION);
 
 	wp_enqueue_script('app', THEME_PATH . '/assets/js/app.js', array(), _S_VERSION, true);
-}
-add_action('wp_enqueue_scripts', 'techofasade_scripts');
+	wp_enqueue_script('ajax', THEME_PATH . '/assets/js/ajax.js', array(), _S_VERSION, true);
 
+	wp_localize_script('ajax', 'ajax', array(
+		'url' => admin_url('admin-ajax.php')
+	));
+}
+
+add_action('wp_enqueue_scripts', 'techofasade_scripts');
 
 add_action('after_setup_theme', 'crb_load');
 function crb_load()
@@ -61,3 +69,6 @@ function crb_load()
 require_once('inc/cpt.php');
 require_once('inc/metafields.php');
 require_once('inc/utils.php');
+require_once('inc/gutenberg_blocks.php');
+require_once('inc/bem_walker.php');
+require_once('inc/ajax.php');

@@ -56,7 +56,7 @@
         <?php get_template_part('template-parts/content', 'advantages'); ?>
     </section>
 
-    <section class="frontpage__products products" id="products">
+    <section class="frontpage__products products" id="production">
         <?php get_template_part('template-parts/content', 'products'); ?>
     </section>
 

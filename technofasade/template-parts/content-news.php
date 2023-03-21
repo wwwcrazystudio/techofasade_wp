@@ -23,7 +23,7 @@ if ($query->have_posts()) : ?>
                 <?php while ($query->have_posts()) :
                     $query->the_post(); ?>
                     <li class="news__news-item news-item" data-aos="fade-right" data-aos-delay="<?= $query->current_post * 150; ?>">
-                        <?php get_template_part('template-parts/content', 'news-item'); ?>
+                        <?php get_template_part('template-parts/content', 'news-item', array('id' => get_the_ID())); ?>
                     </li>
                 <?php endwhile;
                 wp_reset_postdata(); ?>

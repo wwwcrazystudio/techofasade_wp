@@ -53,7 +53,7 @@ $testimonial_img = carbon_get_the_post_meta('testimonial_img');
             <?php the_date(); ?>
         </time>
 
-        <a target="_blank" href="<?= get_post_type_archive_link('testimonial'); ?>#<?php the_ID();?>" class="testimonial-item__link">
+        <a target="_blank" href="<?= get_post_type_archive_link('testimonial'); ?>/#testimonial_<?php the_ID();?>" class="testimonial-item__link">
             Читать полностью
         </a>
     </div>
