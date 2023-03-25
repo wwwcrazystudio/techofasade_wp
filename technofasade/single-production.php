@@ -47,6 +47,81 @@
                     </div>
                 </div>
             </div>
+
+            <div class="product-page__configurator">
+                <div id="configurator"></div>
+            </div>
+
+            <div class="product-page__attributes">
+                <?php
+                $attrs = carbon_get_the_post_meta('product_attrs');
+                $videos = carbon_get_the_post_meta('product_videos');
+                $imgs = carbon_get_the_post_meta('product_imgs');
+                ?>
+                <div class="container">
+                    <div class="product-attributes__tabs tabs">
+                        <ul class="tabs__list">
+                            <?php if (!empty($attrs)) : ?>
+                                <li class="tabs__item">
+                                    <button class="tabs__btn tabs__btn--active" data-tab="attr">Характеристики</button>
+                                </li>
+                            <?php endif; ?>
+                            <?php if (!empty($videos)) : ?>
+                                <li class="tabs__item">
+                                    <button class="tabs__btn" data-tab="videos">Видео</button>
+                                </li>
+                            <?php endif; ?>
+                            <?php if (!empty($imgs)) : ?>
+                                <li class="tabs__item">
+                                    <button class="tabs__btn" data-tab="photos">Фото</button>
+                                </li>
+                            <?php endif; ?>
+                        </ul>
+
+                        <?php if (!empty($attrs)) : ?>
+                            <div class="tabs__content tabs__content--attr tabs__content--active" data-tab-content="attr">
+                                <ul class="tabs__content-list">
+                                    <?php foreach ($attrs as $item) : ?>
+                                        <li class="tabs__content-item">
+                                            <?= $item['attr_title']; ?> <span><?= $item['attr_value']; ?> </span>
+                                        </li>
+                                    <?php endforeach; ?>
+                                </ul>
+                            </div>
+                        <?php endif; ?>
+                        <?php if (!empty($videos)) : ?>
+                            <div class="tabs__content" data-tab-content="videos">
+                                <div class="tabs__carousel  <?= count($videos) > 2 ? 'tabs__carousel--infinite' : null; ?> swiper">
+                                    <div class="tabs__carousel-wrap swiper-wrapper">
+                                        <?php foreach ($videos as $vid) : ?>
+                                            <div class="tabs__carousel-item swiper-slide">
+                                                <iframe width="100" height="100" src="<?= $vid['link']; ?>" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                                            </div>
+                                        <?php endforeach; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+
+                        <?php if (!empty($imgs)) : ?>
+                            <div class="tabs__content" data-tab-content="photos">
+                                <div class="tabs__carousel <?= count($imgs) > 2 ? 'tabs__carousel--infinite' : null; ?> swiper">
+                                    <div class="tabs__carousel-wrap swiper-wrapper">
+                                        <?php foreach ($imgs as $img) : ?>
+                                            <div class="tabs__carousel-item swiper-slide">
+                                                <picture>
+                                                    <source srcset="<?= wp_get_attachment_image_url($img, 'large'); ?>.webp" type="image/webp">
+                                                    <img src="<?= wp_get_attachment_image_url($img, 'large'); ?>" alt="">
+                                                </picture>
+                                            </div>
+                                        <?php endforeach; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
         </main>
         <section class="product-page__advantages advantages">
             <?php get_template_part('template-parts/content', 'advantages', array('backtext' => 'Преимущества', 'no_heading' => true)); ?>

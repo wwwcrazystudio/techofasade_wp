@@ -1,5 +1,37 @@
 <?php
 
+function generatePDF($content = '')
+{
+
+    require __DIR__ . '/../vendor/autoload.php';
+
+
+    $html = '<html>';
+    $html .= '<head>';
+    $html .= '</head>';
+    $html .= '<body>';
+
+    $html .= $content;
+
+    $html .= '</body></html>';
+
+
+    $mpdf = new \Mpdf\Mpdf(array(
+        'margin_left' => 20,
+        'margin_right' => 15,
+        'margin_top' => 48,
+        'margin_bottom' => 25,
+        'margin_header' => 10,
+        'margin_footer' => 10
+    ));
+
+    $mpdf->SetTitle("Crazy Studio - Бриф");
+    $mpdf->SetAuthor("Crazy Кот");
+
+    $mpdf->WriteHTML($html);
+    $mpdf->Output('filename.pdf', \Mpdf\Output\Destination::DOWNLOAD);
+}
+
 function custom_wp_mail_content_type()
 {
     return 'text/html';
@@ -45,6 +77,16 @@ function contact_form_process()
 
     if (isset($tel)) {
         $message .= "<p>Телефон: {$tel}</p>";
+    }
+
+    if (isset($_POST['configurator'])) {
+        $data = json_decode(sprintf('{%s}', $fixed_string));
+
+        $data = json_decode(stripslashes($_POST['configurator']));
+
+        foreach ($data as $key => $value) {
+            $message .= "<p>{$key}: {$value}</p>";
+        }
     }
 
     wp_mail($to, $subject, $message, $headers);
@@ -176,3 +218,23 @@ function testimonial_load_more()
         </ul>
     <?php endif; ?>
 <?php }
+
+
+add_action('wp_ajax_get_pdf', 'get_pdf');
+add_action('wp_ajax_nopriv_get_pdf', 'get_pdf');
+
+function get_pdf()
+{
+    $table = '<table style="width: 100%; color:#333; border-collapse: collapse; margin-left: auto; margin-right: auto; font-size: 14px;">';
+
+    foreach ($_POST as $label => $value) {
+        $table .= '<tr nobr="true">';
+        $table .= "<th style='width: 50%; padding-top: 5px; padding-bottom: 5px; padding-left: 10px; padding-right: 10px; border: solid 1px #000000; text-align: left;'>{$label}</th> <td style='width: 50%; padding-top: 5px; padding-bottom: 5px; padding-left: 10px; padding-right: 10px; border: solid 1px #000000; text-align: left;'>{$value}</td>";
+        $table .= '</tr>';
+    }
+
+    $table .= '</table>';
+
+    echo $table;
+    generatePDF($table);
+}

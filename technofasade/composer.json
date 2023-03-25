@@ -1,0 +1,6 @@
+{
+    "require": {
+        "htmlburger/carbon-fields": "^3.5",
+        "mpdf/mpdf": "^5.7"
+    }
+}

@@ -92,7 +92,6 @@ function the_pagination($prefix, $query)
 <?php
 }
 
-
 add_action('template_redirect', 'redirect_unavailable_singular_posts');
 function redirect_unavailable_singular_posts()
 {

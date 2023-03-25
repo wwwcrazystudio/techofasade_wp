@@ -75,6 +75,7 @@ $wa = carbon_get_theme_option('wa');
 								сайта
 							</div>
 							<?php wp_nonce_field( 'contact_form', 'contact_nonce' ) ;?>
+							<input type="hidden" data-configurator-input name="configurator" disabled>
 						</form>
 					</div>
 				</div>

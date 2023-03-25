@@ -96,7 +96,23 @@ function fasade_metafields()
                 <% if (heading) { %>
                     <%- heading %>
                 <% } %>
-            ')
+            '),
+
+            Field::make('complex', 'product_attrs', 'Характеристики в блоке характеристик')
+                ->set_layout('tabbed-horizontal')
+                ->add_fields(array(
+                    Field::make('text', 'attr_title', 'Название характеристики')->set_required(true),
+                    Field::make('text', 'attr_value', 'Значение характеристики')->set_required(true),
+                )),
+
+            Field::make('media_gallery', 'product_photos', 'Изображения в блоке характеристик')
+                ->set_type(array('image')),
+
+            Field::make('complex', 'product_videos', 'Видео в блоке характеристик')
+                ->set_layout('tabbed-horizontal')
+                ->add_fields(array(
+                    Field::make('text', 'link', 'Ссылка на видео')->set_required(true),
+                ))
         ));
 
     Container::make('post_meta', 'Данные отзыва')

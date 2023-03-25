@@ -43,7 +43,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 body
             })
 
-            const resp = await req.json()
+            const resp = await req.text()
+
+            console.log(resp)
 
             if (!resp.success) {
                 alert(resp.message)
