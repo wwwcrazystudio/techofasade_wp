@@ -56,7 +56,7 @@
                 <?php
                 $attrs = carbon_get_the_post_meta('product_attrs');
                 $videos = carbon_get_the_post_meta('product_videos');
-                $imgs = carbon_get_the_post_meta('product_imgs');
+                $imgs = carbon_get_the_post_meta('product_photos');
                 ?>
                 <div class="container">
                     <div class="product-attributes__tabs tabs">

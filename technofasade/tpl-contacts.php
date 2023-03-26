@@ -25,7 +25,7 @@ $map = carbon_get_theme_option('map');
                             <li class="contacts-list__item">
                                 <div class="contacts-list__item-title">Телефон</div>
                                 <div class="contacts-list__item-value">
-                                    <a href="tel:<?= str_replace(array('(', ')', ' ', '<span>', '</span>'), '', $tel); ?>" class="contacts-list__item-tel">
+                                    <a href="tel:<?= str_replace(array('(', ')', ' ', '<span>', '</span>', '-'), '', $tel); ?>" class="contacts-list__item-tel">
                                         <?= $tel; ?>
                                     </a>
                                 </div>

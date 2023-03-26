@@ -41,6 +41,6 @@ $about_advantages = carbon_get_the_post_meta('about_advantages');
             </div>
         <?php endif; ?>
 
-        <div data-aos="fade-up"><a href="" class="about-us__link" data-animate-link> О компании </a></div>
+        <div data-aos="fade-up"><a href="<?=get_the_permalink( 74 );?>" class="about-us__link" data-animate-link> О компании </a></div>
     </div>
 </div>

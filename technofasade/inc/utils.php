@@ -33,18 +33,18 @@ function the_breadcrumbs($prefix)
                 </a>
             </li>
 
-            <?php if (is_singular() && !is_singular('page')) :
+            <?php if (is_singular() && !is_singular('page') && !is_singular('production')) :
                 $type = get_post_type(get_queried_object_id());
                 $typeObj = get_post_type_object($type); ?>
                 <li class="breadcrumbs__item">
                     <a class="breadcrumbs__link" href="<?= get_post_type_archive_link($type); ?>">
-                        <?= str_replace('Записи', 'Статьи', $typeObj->labels->name); ?>
+                        <?= strip_tags(str_replace('Записи', 'Статьи', $typeObj->labels->name)); ?>
                     </a>
                 </li>
             <?php endif; ?>
 
             <li class="breadcrumbs__item breadcrumbs__item--active" aria-current="page">
-                <?= is_post_type_archive() ?  post_type_archive_title() : get_the_title(get_queried_object_id()); ?>
+                <?= strip_tags(is_post_type_archive() ?  post_type_archive_title() : get_the_title(get_queried_object_id())); ?>
             </li>
         </ol>
     </nav>
@@ -59,12 +59,12 @@ function the_pagination($prefix, $query)
 
     $args = array(
         'base'    => str_replace($big, '%#%', get_pagenum_link($big)),
-        'format'  => '',
+        'format' => '?paged=%#%',
         'current' => max(1, get_query_var('paged')),
         'total'   => $query->max_num_pages,
         'type'    => 'array',
         'prev_text' => 'Назад
-            <svg width="15" height="18" viewBox="0 0 15 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg transform="rotate(180deg)" width="15" height="18" viewBox="0 0 15 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M9 9L9.53674e-07 18L4.95 9L9.53674e-07 0L9 9Z" fill="#CB9274" />
                 <path d="M15 9L6 18L10.95 9L6 0L15 9Z" fill="#CB9274" />
             </svg>',

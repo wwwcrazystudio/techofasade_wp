@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 body
             })
 
-            const resp = await req.text()
+            const resp = JSON.parse(await req.text())
 
             console.log(resp)
 
@@ -56,6 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
             dialogs.forEach(dialog => dialog.close())
 
             setTimeout(() => {
+                form.reset()
                 successModal.showModal()    
             }, 300);
 

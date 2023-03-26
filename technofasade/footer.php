@@ -187,7 +187,7 @@ $wa = carbon_get_theme_option('wa');
 					<div class="footer__col">
 						<div class="footer__contacts">
 							<?php if (!empty($tel)) : ?>
-								<a href="tel:<?= str_replace(array('(', ')', ' ', '<span>', '</span>'), '', $tel); ?>" class="footer__tel">
+								<a href="tel:<?= str_replace(array('(', ')', ' ', '<span>', '</span>', '-'), '', $tel); ?>" class="footer__tel">
 									+7 (999) 999 99 99
 								</a>
 							<?php endif; ?>

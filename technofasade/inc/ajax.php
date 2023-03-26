@@ -5,7 +5,6 @@ function generatePDF($content = '')
 
     require __DIR__ . '/../vendor/autoload.php';
 
-
     $html = '<html>';
     $html .= '<head>';
     $html .= '</head>';
@@ -14,7 +13,6 @@ function generatePDF($content = '')
     $html .= $content;
 
     $html .= '</body></html>';
-
 
     $mpdf = new \Mpdf\Mpdf(array(
         'margin_left' => 20,
@@ -29,7 +27,13 @@ function generatePDF($content = '')
     $mpdf->SetAuthor("Crazy Кот");
 
     $mpdf->WriteHTML($html);
-    $mpdf->Output('filename.pdf', \Mpdf\Output\Destination::DOWNLOAD);
+    $uploads = wp_upload_dir();
+    $currentTime = time();
+    $filePath = $uploads['path'] . '/brief' .  $currentTime  . '.pdf';
+    $fileUrl = $uploads['url'] . '/brief' .  $currentTime  . '.pdf';
+    $mpdf->Output($filePath, \Mpdf\Output\Destination::FILE);
+    echo $fileUrl;
+    wp_die();
 }
 
 function custom_wp_mail_content_type()
@@ -80,8 +84,6 @@ function contact_form_process()
     }
 
     if (isset($_POST['configurator'])) {
-        $data = json_decode(sprintf('{%s}', $fixed_string));
-
         $data = json_decode(stripslashes($_POST['configurator']));
 
         foreach ($data as $key => $value) {
@@ -190,32 +192,14 @@ function testimonial_load_more()
 
     $query = new WP_Query($args);
     if ($query->have_posts()) : ?>
-        <ul class="testimonials-page__list">
-            <?php $i = 1;
-            while ($query->have_posts()) :
-                $query->the_post();
-                if ($i < 6) : ?>
-                    <li class="testimonials-page__testimonial-item testimonial-item" id="#<?php the_ID(); ?>">
-                        <?php get_template_part('template-parts/content', 'testimonial-item'); ?>
-                    </li>
-            <?php endif;
-                $i++;
-            endwhile;
-            wp_reset_postdata(); ?>
-        </ul>
-        <ul class="testimonials-page__list">
-            <?php $i = 1;
-            while ($query->have_posts()) :
-                $query->the_post();
-                if ($i > 6) : ?>
-                    <li class="testimonials-page__testimonial-item testimonial-item" id="#<?php the_ID(); ?>">
-                        <?php get_template_part('template-parts/content', 'testimonial-item'); ?>
-                    </li>
-            <?php endif;
-                $i++;
-            endwhile;
-            wp_reset_postdata(); ?>
-        </ul>
+        <?php
+        while ($query->have_posts()) :
+            $query->the_post(); ?>
+            <li class="testimonials-page__testimonial-item testimonial-item" id="testimonial_<?php the_ID(); ?>">
+                <?php get_template_part('template-parts/content', 'testimonial-item', array('full' => true)); ?>
+            </li>
+        <?php endwhile;
+        wp_reset_postdata(); ?>
     <?php endif; ?>
 <?php }
 
@@ -225,9 +209,22 @@ add_action('wp_ajax_nopriv_get_pdf', 'get_pdf');
 
 function get_pdf()
 {
+    $data =  json_decode(stripslashes($_POST['data']));
+    $preview = $_POST['preview'];
+
     $table = '<table style="width: 100%; color:#333; border-collapse: collapse; margin-left: auto; margin-right: auto; font-size: 14px;">';
 
-    foreach ($_POST as $label => $value) {
+    $table .= '<tr nobr="true">';
+    $table .= "<th colspan='2' style='width: 100%; padding-top: 5px; padding-bottom: 5px; font-size:30px; padding-left: 10px; padding-right: 10px; border: solid 1px #000000; text-align: center;'>Собери свое решение</th>";
+    $table .= '</tr>';
+
+    if ($_POST['preview']) {
+        $table .= '<tr nobr="true">';
+        $table .= "<th colspan='2' style='width: 100%; padding-top: 20px; padding-bottom: 20px; padding-left: 10px; padding-right: 10px; border: solid 1px #000000; text-align: center;'><img src='{$preview}'></th>";
+        $table .= '</tr>';
+    }
+
+    foreach ($data as $label => $value) {
         $table .= '<tr nobr="true">';
         $table .= "<th style='width: 50%; padding-top: 5px; padding-bottom: 5px; padding-left: 10px; padding-right: 10px; border: solid 1px #000000; text-align: left;'>{$label}</th> <td style='width: 50%; padding-top: 5px; padding-bottom: 5px; padding-left: 10px; padding-right: 10px; border: solid 1px #000000; text-align: left;'>{$value}</td>";
         $table .= '</tr>';
@@ -235,6 +232,5 @@ function get_pdf()
 
     $table .= '</table>';
 
-    echo $table;
     generatePDF($table);
 }

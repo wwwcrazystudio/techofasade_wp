@@ -63,7 +63,7 @@ $hours = carbon_get_theme_option('workhours');
 				<?php get_template_part('template-parts/content', 'socials'); ?>
 			</div>
 			<?php if (!empty($tel)) : ?>
-				<a href="tel:<?= str_replace(array('(', ')', ' ', '<span>', '</span>'), '', $tel); ?>" class="header__tel">
+				<a href="tel:<?= str_replace(array('(', ')', ' ', '<span>', '</span>', '-'), '', $tel); ?>" class="header__tel">
 					<?= $tel; ?>
 				</a>
 			<?php endif; ?>

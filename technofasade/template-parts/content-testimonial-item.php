@@ -4,6 +4,7 @@ $testimonial_type = carbon_get_the_post_meta('testimonial_type');
 $testimonial_video = carbon_get_the_post_meta('testimonial_video');
 $testimonial_text = carbon_get_the_post_meta('testimonial_text');
 $testimonial_img = carbon_get_the_post_meta('testimonial_img');
+$is_full = $args ? $args['full'] : false;
 ?>
 
 <div class="testimonial-item__wrap">
@@ -27,7 +28,11 @@ $testimonial_img = carbon_get_the_post_meta('testimonial_img');
         <?php switch ($testimonial_type):
             case 'text': ?>
                 <div class="testimonial-item__text">
-                    <?= mb_substr($testimonial_text, 0, 200); ?>...
+                    <?php if (!$is_full) : ?>
+                        <?= mb_substr($testimonial_text, 0, 200); ?>...
+                    <?php else : ?>
+                        <?=$testimonial_text;?>
+                    <?php endif; ?>
                 </div>
             <?php break;
             case 'video': ?>
@@ -50,12 +55,13 @@ $testimonial_img = carbon_get_the_post_meta('testimonial_img');
 
     <div class="testimonial-item__foot">
         <time datetime="<?= get_the_date('Y-m-d'); ?>" class="testimonial-item__date">
-            <?php the_date(); ?>
+            <?= get_the_date(); ?>
         </time>
 
-        <a target="_blank" href="<?= get_post_type_archive_link('testimonial'); ?>/#testimonial_<?php the_ID();?>" class="testimonial-item__link">
-            Читать полностью
-        </a>
+        <?php if (!$is_full) : ?>
+            <a target="_blank" href="<?= get_post_type_archive_link('testimonial'); ?>/#testimonial_<?php the_ID(); ?>" class="testimonial-item__link">
+                Читать полностью
+            </a>
+        <?php endif; ?>
     </div>
 </div>
-

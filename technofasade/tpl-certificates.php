@@ -28,7 +28,7 @@ $query = new WP_Query($args); ?>
                             <li class="certificates-page__certificate-item certificate-item">
                                 <a href="<?php the_post_thumbnail_url('full'); ?>" class="certificate-item__link" data-gallery="certificates" data-caption="<?php the_title(); ?>">
                                     <figure class="certificate-item__img-wrap">
-                                        <picture class="certificate__item-img">
+                                        <picture class="certificate-item__img">
                                             <source srcset="<?php the_post_thumbnail_url('large'); ?>.webp" type="image/webp">
                                             <img src="<?php the_post_thumbnail_url('large'); ?>" alt="<?php the_title(); ?>">
                                         </picture>

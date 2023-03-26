@@ -67,17 +67,18 @@ if ($query->have_posts()) : ?>
                                 <ul class="product-features__list">
                                     <?php foreach ($features as $feature) :
                                         $content_class_modifier = count($feature['values']) > 4 ? 4 : count($feature['values']);
-                                        ?>
+                                    ?>
                                         <li class="product-features__feature-item feature-item">
                                             <button class="feature-item__toggle <?= $feature['optional'] ? 'feature-item__toggle--optional' : null; ?>">
                                                 <span class="feature-item__title">
                                                     <?= $feature['heading']; ?>
+
+                                                    <?php if ($feature['optional']) : ?>
+                                                        <span class="feature-item__notice">
+                                                            * Опционально
+                                                        </span>
+                                                    <?php endif; ?>
                                                 </span>
-                                                <?php if ($feature['optional']): ?>
-                                                <span class="feature-item__notice">
-                                                    * Опционально
-                                                </span>
-                                                <?php endif;?>
                                                 <span class="feature-item__values">
                                                     <?php foreach ($feature['values'] as $value) : ?>
                                                         <span class="feature-item__value-item">
@@ -86,7 +87,7 @@ if ($query->have_posts()) : ?>
                                                     <?php endforeach; ?>
                                                 </span>
                                             </button>
-                                            <div class="feature-item__content feature-item__content--<?=$content_class_modifier;?>">
+                                            <div class="feature-item__content feature-item__content--<?= $content_class_modifier; ?>">
                                                 <?php foreach ($feature['values'] as $value) : ?>
                                                     <figure class="feature-item__content-item">
                                                         <picture class="feature-item__content-item-img">
@@ -104,7 +105,7 @@ if ($query->have_posts()) : ?>
                                 </ul>
                             </div>
                             <div data-aos="fade-up">
-                                <a href="<?php the_permalink();?>" class="product-item__link" data-animate-link>
+                                <a href="<?php the_permalink(); ?>" class="product-item__link" data-animate-link>
                                     Подробнее о продукции
                                 </a>
                             </div>

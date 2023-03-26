@@ -22,37 +22,20 @@ $query = new WP_Query($args); ?>
             <div class="testimonials-page__content" data-content>
                 <?php if ($query->have_posts()) : ?>
 
-                    <div class="testimonials-page__list-wrap" data-container>
-                        <ul class="testimonials-page__list">
-                            <?php $i = 1;
-                            while ($query->have_posts()) :
-                                $query->the_post();
-                                if ($i < 6) : ?>
-                                    <li class="testimonials-page__testimonial-item testimonial-item" id="testimonial_<?php the_ID(); ?>">
-                                        <?php get_template_part('template-parts/content', 'testimonial-item'); ?>
-                                    </li>
-                            <?php endif;
-                                $i++;
-                            endwhile;
-                            wp_reset_postdata(); ?>
-                        </ul>
-                        <ul class="testimonials-page__list">
-                            <?php $i = 1;
-                            while ($query->have_posts()) :
-                                $query->the_post();
-                                if ($i > 6) : ?>
-                                    <li class="testimonials-page__testimonial-item testimonial-item" id="testimonial_<?php the_ID(); ?>">
-                                        <?php get_template_part('template-parts/content', 'testimonial-item'); ?>
-                                    </li>
-                            <?php endif;
-                                $i++;
-                            endwhile;
-                            wp_reset_postdata(); ?>
-                        </ul>
-                    </div>
+                    <ul class="testimonials-page__list" data-container>
+                        <?php
+                        while ($query->have_posts()) :
+                            $query->the_post(); ?>
+                            <li class="testimonials-page__testimonial-item testimonial-item" id="testimonial_<?php the_ID(); ?>">
+                                <?php get_template_part('template-parts/content', 'testimonial-item', array('full' => true)); ?>
+                            </li>
+                        <?php endwhile;
+                        wp_reset_postdata(); ?>
+                    </ul>
+
 
                     <?php if ($query->max_num_pages > 1) : ?>
-                        <button class="testimonials-page__load-more" data-load-more data-action="testimonial_load_more" data-page="<?=get_query_var('page');?>">
+                        <button class="testimonials-page__load-more" data-load-more data-action="testimonial_load_more" data-page="<?= get_query_var('page'); ?>">
                             Показать еще
                         </button>
                         <?php the_pagination('testimonials-page', $query); ?>
