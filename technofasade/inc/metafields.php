@@ -70,6 +70,14 @@ function fasade_metafields()
                 ')
         ));
 
+    Container::make('post_meta', 'Данные дилера')
+        ->where('post_type', '=', 'dealer')
+        ->add_fields(array(
+            Field::make('text', 'dealer_address', 'Адрес'),
+            Field::make('text', 'dealer_address_url', 'Ссылка адреса'),
+            Field::make('text', 'dealer_tel', 'Телефон'),
+        ));
+
     Container::make('post_meta', 'Данные продукта')
         ->where('post_type', '=', 'production')
         ->add_fields(array(

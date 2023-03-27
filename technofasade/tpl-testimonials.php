@@ -6,7 +6,7 @@ get_header();
 
 $args = array(
     'posts_per_page' => 10,
-    'paged' => get_query_var('page'),
+    'paged' => get_query_var('paged'),
     'post_type' => 'testimonial',
 );
 
@@ -35,7 +35,7 @@ $query = new WP_Query($args); ?>
 
 
                     <?php if ($query->max_num_pages > 1) : ?>
-                        <button class="testimonials-page__load-more" data-load-more data-action="testimonial_load_more" data-page="<?= get_query_var('page'); ?>">
+                        <button class="testimonials-page__load-more" data-load-more data-action="testimonial_load_more" data-page="<?= get_query_var('paged'); ?>">
                             Показать еще
                         </button>
                         <?php the_pagination('testimonials-page', $query); ?>

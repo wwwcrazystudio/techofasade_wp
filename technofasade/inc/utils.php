@@ -109,4 +109,9 @@ function redirect_unavailable_singular_posts()
         wp_redirect(home_url(), 302);
         exit;
     }
+
+    if (is_singular('dealer')) {
+        wp_redirect(home_url(), 302);
+        exit;
+    }
 }

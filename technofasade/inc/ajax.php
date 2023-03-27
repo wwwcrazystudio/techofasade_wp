@@ -23,8 +23,8 @@ function generatePDF($content = '')
         'margin_footer' => 10
     ));
 
-    $mpdf->SetTitle("Crazy Studio - Бриф");
-    $mpdf->SetAuthor("Crazy Кот");
+    $mpdf->SetTitle("Собери свое решение");
+    $mpdf->SetAuthor("Technofasade");
 
     $mpdf->WriteHTML($html);
     $uploads = wp_upload_dir();
@@ -62,8 +62,8 @@ function contact_form_process()
 
     add_filter('wp_mail_content_type', 'custom_wp_mail_content_type');
 
-    //$to      = get_option('admin_email');
-    $to      = 'mikhail.shuvalov@crazy.studio';
+
+    $to      = get_option('admin_email');
     $subject = get_option('blogname') . ' - запрос обратной связи';
     $headers = 'From: ' . get_option('blogname') . ' <auto@' . $_SERVER['SERVER_NAME'] . '>';
 
@@ -126,8 +126,50 @@ function certificate_load_more()
                 </figure>
             </a>
         </li>
-    <?php endwhile;
+        <?php endwhile;
     wp_reset_postdata();
+    wp_die();
+}
+
+add_action('wp_ajax_dealer_load_more', 'dealer_load_more');
+add_action('wp_ajax_nopriv_dealer_load_more', 'dealer_load_more');
+
+function dealer_load_more()
+{
+
+    $args = array(
+        'posts_per_page' => 9,
+        'paged' => $_POST['page'],
+        'post_type' => 'dealer',
+    );
+
+    $query = new WP_Query($args);
+    if ($query->have_posts()) :
+        while ($query->have_posts()) : $query->the_post();
+            $address = carbon_get_the_post_meta('dealer_address');
+            $address_url = carbon_get_the_post_meta('dealer_address_url');
+            $tel = carbon_get_the_post_meta('dealer_tel');
+        ?>
+            <li class="dealers__item">
+                <div class="dealers__item-img">
+                    <img width="145" height="145" src="<?php the_post_thumbnail_url('medium'); ?>" alt="<?php the_title(); ?>">
+                </div>
+                <div class="dealers__item-info">
+                    <div class="dealers__item-title">
+                        <?php the_title(); ?>
+                    </div>
+                    <a href="<?= $address_url; ?>" class="dealers__item-address">
+                        <?= $address; ?>
+                    </a>
+                    <a href="tel:<?= str_replace(array('(', ')', ' ', '-'), '', $tel); ?>" class="dealers__item-tel">
+                        <?= $tel; ?>
+                    </a>
+                </div>
+            </li>
+        <?php endwhile;
+        wp_reset_postdata();
+    endif;
+    wp_die();
 }
 
 add_action('wp_ajax_post_load_more', 'post_load_more');
@@ -150,6 +192,7 @@ function post_load_more()
         </li>
     <?php endwhile;
     wp_reset_postdata();
+    wp_die();
 }
 
 add_action('wp_ajax_portfolio_load_more', 'portfolio_load_more');
@@ -177,6 +220,7 @@ function portfolio_load_more()
         </li>
     <?php endwhile;
     wp_reset_postdata();
+    wp_die();
 }
 
 add_action('wp_ajax_testimonial_load_more', 'testimonial_load_more');
@@ -198,10 +242,11 @@ function testimonial_load_more()
             <li class="testimonials-page__testimonial-item testimonial-item" id="testimonial_<?php the_ID(); ?>">
                 <?php get_template_part('template-parts/content', 'testimonial-item', array('full' => true)); ?>
             </li>
-        <?php endwhile;
-        wp_reset_postdata(); ?>
-    <?php endif; ?>
-<?php }
+<?php endwhile;
+        wp_reset_postdata();
+    endif;
+    wp_die();
+}
 
 
 add_action('wp_ajax_get_pdf', 'get_pdf');

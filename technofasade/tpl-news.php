@@ -6,7 +6,7 @@ get_header();
 
 $args = array(
     'posts_per_page' => 18,
-    'paged' => get_query_var('page'),
+    'paged' => get_query_var('paged'),
     'post_type' => 'post',
 );
 
@@ -33,7 +33,7 @@ $query = new WP_Query($args); ?>
                     </ul>
 
                     <?php if ($query->max_num_pages > 1) : ?>
-                        <button class="news-page__load-more"  data-load-more data-action="post_load_more" data-page="<?=get_query_var('page');?>">
+                        <button class="news-page__load-more"  data-load-more data-action="post_load_more" data-page="<?=get_query_var('paged');?>">
                             Показать еще
                         </button>
                         <?php the_pagination('news-page', $query); ?>

@@ -51,7 +51,7 @@ get_header();
 					<a href="<?= site_url(); ?>/#production" class="article-page__products-banner">
 						<picture>
 							<source srcset="<?= THEME_PATH; ?>/assets/img/banner.avif" type="image/avif">
-							<img src="<?= THEME_PATH; ?>/assets/img/banner.webp" alt="">
+							<img src="<?= THEME_PATH; ?>/assets/img/banner.webp" alt="Наша продукция">
 						</picture>
 					</a>
 				</div>
