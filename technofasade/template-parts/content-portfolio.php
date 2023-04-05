@@ -27,7 +27,7 @@ if ($query->have_posts()) : ?>
                         <li class="portfolio__carousel-item swiper-slide">
                             <picture>
                                 <source srcset="<?php the_post_thumbnail_url('large'); ?>.webp" type="image/webp">
-                                <img src="<?php the_post_thumbnail_url('large'); ?>" alt="<?php the_title(); ?>">
+                                <img loading="lazy" src="<?php the_post_thumbnail_url('large'); ?>" alt="<?php the_title(); ?>">
                             </picture>
                         </li>
 

@@ -79,7 +79,7 @@ $hours = carbon_get_theme_option('workhours');
 				</div>
 				<div class="header-menu__contacts">
 					<?php if (!empty($tel)) : ?>
-						<a href="<?= str_replace(array('(', ')', ' ', '<span>', '</span>', '-'), '', $tel); ?>" class="header-menu__tel">
+						<a href="tel:<?= str_replace(array('(', ')', ' ', '<span>', '</span>', '-'), '', $tel); ?>" class="header-menu__tel">
 							<?= $tel; ?>
 						</a>
 					<?php endif; ?>

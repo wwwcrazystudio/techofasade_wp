@@ -279,3 +279,68 @@ function get_pdf()
 
     generatePDF($table);
 }
+
+add_action('wp_ajax_get_full_testimonial', 'get_full_testimonial');
+add_action('wp_ajax_nopriv_get_full_testimonial', 'get_full_testimonial');
+
+function get_full_testimonial () {
+
+	$id = $_POST['id'];
+	
+	$testimonial_job = carbon_get_post_meta($id, 'testimonial_job');
+	$testimonial_type = carbon_get_post_meta($id, 'testimonial_type');
+	$testimonial_video = carbon_get_post_meta($id,'testimonial_video');
+	$testimonial_text = carbon_get_post_meta($id, 'testimonial_text');
+	$testimonial_img = carbon_get_post_meta($id, 'testimonial_img');
+?>
+
+<div class="testimonial-item__wrap">
+    <picture class="testimonial-item__user-img">
+        <source srcset="<?= get_the_post_thumbnail_url($id, 'medium'); ?>.webp" type="image/webp">
+        <img src="<?= get_the_post_thumbnail_url($id, 'medium'); ?>" alt="<?= get_the_title($id); ?>">
+    </picture>
+
+    <div class="testimonial-item__title">
+        <?= get_the_title($id); ?>
+    </div>
+
+    <?php if (!empty($testimonial_job)) : ?>
+        <div class="testimonial-item__job">
+            <?= $testimonial_job; ?>
+        </div>
+    <?php endif; ?>
+
+    <div class="testimonial-item__body">
+
+        <?php switch ($testimonial_type):
+            case 'text': ?>
+                <div class="testimonial-item__text">
+                      <?=$testimonial_text;?>
+                </div>
+            <?php break;
+            case 'video': ?>
+                <div class="testimonial-item__body">
+                    <div class="testimonial-item__video">
+                        <iframe width="100" height="100" src=" <?= $testimonial_video; ?>" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    </div>
+                </div>
+            <?php break;
+            case 'img': ?>
+                <div class="testimonial-item__img">
+                    <picture>
+                        <source srcset="<?= wp_get_attachment_image_url($testimonial_img, 'full'); ?>.webp" type="image/webp">
+                        <img src="<?= wp_get_attachment_image_url($testimonial_img, 'full'); ?>" alt="<?= get_post_meta($testimonial_img, '_wp_attachment_image_alt', true); ?>">
+                    </picture>
+                </div>
+        <?php break;
+        endswitch; ?>
+    </div>
+
+    <div class="testimonial-item__foot">
+        <time datetime="<?= get_the_date('Y-m-d', $id); ?>" class="testimonial-item__date">
+            <?= get_the_date('', $id); ?>
+        </time>
+    </div>
+</div> 
+<?php wp_die();
+}

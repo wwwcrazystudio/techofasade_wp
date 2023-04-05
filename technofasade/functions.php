@@ -9,7 +9,7 @@
  */
 
 
-define('_S_VERSION', '1.0.0');
+define('_S_VERSION', '1.1.0');
 define('THEME_PATH', get_template_directory_uri());
 
 function techofasade_setup()

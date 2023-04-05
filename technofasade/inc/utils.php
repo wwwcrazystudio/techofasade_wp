@@ -58,7 +58,7 @@ function the_pagination($prefix, $query)
     $big = 999999999;
 
     $args = array(
-        'base'    => str_replace($big, '%#%', get_pagenum_link($big)),
+        'base'    => '%_%',
         'format' => '?paged=%#%',
         'current' => max(1, get_query_var('paged')),
         'total'   => $query->max_num_pages,

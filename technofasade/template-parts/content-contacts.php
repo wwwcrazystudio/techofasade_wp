@@ -1,6 +1,8 @@
+<?php $hide_head = $args ? $args['hide_head'] : false;?>
+
 <div class="contacts__wrap">
     <div class="container">
-        <?php if (!$args['hide_head']) : ?>
+        <?php if (!$hide_head) : ?>
         <div class="contacts__heading" data-aos="fade-up">
             <div class="contacts__backtext">
                 Всегда на связи
@@ -36,7 +38,7 @@
                             <label for="name" class="input__label input__label--hidden">
                                 Имя
                             </label>
-                            <input class="input__control" name="name" id="name" placeholder="Имя" required>
+                            <input class="input__control" name="name" id="name" placeholder="Имя" required minlength="2">
                         </div>
                     </div>
                     <div class="contacts__input input--icon input">
@@ -49,7 +51,7 @@
                             <label for="tel" class="input__label input__label--hidden">
                                 Телефон
                             </label>
-                            <input type="tel" class="input__control" name="tel" id="tel" placeholder="+7 (***) ***-**-**" required>
+                            <input type="tel" class="input__control" name="tel" id="tel" placeholder="+7 (***) ***-**-**" required minlength="18">
                         </div>
                     </div>
                     <button class="contacts__form-link" data-animate-link>
@@ -58,7 +60,7 @@
 
                     <div class="contacts__form-policy">
                         Нажимая на кнопку «Оставить заявку» вы даете
-                        свое согласие на обработку <a target="_blank" href="<?php the_privacy_policy_link();?>">персональных данных</a>
+                        свое согласие на обработку <a target="_blank" href="<?= get_privacy_policy_url();?>">персональных данных</a>
                         сайта
                     </div>
 

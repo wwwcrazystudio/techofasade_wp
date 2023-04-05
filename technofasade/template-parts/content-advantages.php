@@ -1,5 +1,6 @@
 <?php
 $advantages = carbon_get_the_post_meta('advantages');
+$no_heading = $args ? $args['no_heading'] : false
 ?>
 <?php if (!empty($advantages)) : ?>
     <div class="container">
@@ -8,7 +9,7 @@ $advantages = carbon_get_the_post_meta('advantages');
                 <div class="advantages__backtext">
                     <?= $args ? $args['backtext'] : 'Techno Fasade'; ?>
                 </div>
-                <?php if (!$args['no_heading']) : ?>
+                <?php if (!$no_heading) : ?>
                     <h2 class="advantages__heading-content">
                         Мы производим ставни класса Lux, с вниманием к каждой детали
                     </h2>
@@ -23,7 +24,7 @@ $advantages = carbon_get_the_post_meta('advantages');
                         <div class="advantage-item__wrap">
                             <picture class="advantage-item__img">
                                 <source srcset="<?= wp_get_attachment_image_url($item['img'], 'large'); ?>.webp" type="image/webp">
-                                <img src="<?= wp_get_attachment_image_url($item['img'], 'large'); ?>" alt="<?= get_post_meta($item['img'], '_wp_attachment_image_alt', true); ?>">
+                                <img loading="lazy" src="<?= wp_get_attachment_image_url($item['img'], 'large'); ?>" alt="<?= get_post_meta($item['img'], '_wp_attachment_image_alt', true); ?>">
                             </picture>
                             <div class="advantage-item__title">
                                 <?= $item['heading']; ?>

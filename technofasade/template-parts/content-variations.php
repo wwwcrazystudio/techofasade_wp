@@ -30,7 +30,7 @@ $variations_slider = carbon_get_the_post_meta('variations_slider');
                     <li class="variations__carousel-item swiper-slide">
                         <picture>
                             <source srcset="<?= wp_get_attachment_image_url($item, 'full'); ?>.webp" type="image/webp">
-                            <img src="<?= wp_get_attachment_image_url($item, 'full'); ?>" alt="<?= get_post_meta($item, '_wp_attachment_image_alt', true); ?>">
+                            <img loading="lazy" src="<?= wp_get_attachment_image_url($item, 'full'); ?>" alt="<?= get_post_meta($item, '_wp_attachment_image_alt', true); ?>">
                         </picture>
                     </li>
                 <?php endforeach; ?>

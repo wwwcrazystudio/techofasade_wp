@@ -59,9 +59,9 @@ $is_full = $args ? $args['full'] : false;
         </time>
 
         <?php if (!$is_full) : ?>
-            <a target="_blank" href="<?= get_post_type_archive_link('testimonial'); ?>/#testimonial_<?php the_ID(); ?>" class="testimonial-item__link">
+            <button class="testimonial-item__link" data-testimonial="<?php the_ID(); ?>">
                 Читать полностью
-            </a>
+            </button>
         <?php endif; ?>
     </div>
 </div>

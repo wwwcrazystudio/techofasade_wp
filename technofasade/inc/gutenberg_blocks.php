@@ -30,16 +30,16 @@ function fasade_gutenberg()
             <div class="content-block-carousel__wrap swiper">
                 <div class="content-block-carousel__content swiper-wrapper">
                     <?php foreach ($fields['block_slider'] as $slide) : ?>
-                        <div class="content-block-carousel__item swiper-slide">
+                        <a href="<?= wp_get_attachment_image_url($slide['img'], 'full'); ?>" data-gallery="images" data-caption="<?=$slide['caption'];?>" class="content-block-carousel__item swiper-slide">
                             <figure>
-                                <img src="<?= wp_get_attachment_image_url($slide['img'], 'full'); ?>" alt="<?= get_post_meta($slide['img'], '_wp_attachment_image_alt', true); ?>">
+                                <img src="<?= wp_get_attachment_image_url($slide['img'], 'large'); ?>" alt="<?= get_post_meta($slide['img'], '_wp_attachment_image_alt', true); ?>">
                                 <?php if ($slide['caption']) : ?>
                                     <figcaption>
                                         <?= $slide['caption']; ?>
                                     </figcaption>
                                 <?php endif; ?>
                             </figure>
-                        </div>
+                        </a>
                     <?php endforeach; ?>
                 </div>
             </div>
@@ -59,6 +59,13 @@ function fasade_gutenberg()
             Field::make('text', 'content_block_cert_index', 'Индекс'),
         ))
         ->set_render_callback(function ($fields) {
+			
+		$args = array(
+               'posts_per_page' => 10,
+               'post_type' => 'certificate',
+         );
+
+        $query = new WP_Query($args);
     ?>
 
         <section class="content-block">
@@ -80,17 +87,14 @@ function fasade_gutenberg()
                     <div class="content-block-carousel__wrap swiper">
                         <div class="content-block-carousel__content swiper-wrapper">
                             <?php
-                            $args = array(
-                                'posts_per_page' => 10,
-                                'post_type' => 'certificates',
-                            );
-
-                            $query = new WP_Query($args);
+                            
                             while ($query->have_posts()) :
                                 $query->the_post(); ?>
-                                <div class="content-block-carousel__item swiper-slide">
-                                    <img src="<?php the_post_thumbnail_url('large'); ?>" alt="<?php the_title(); ?>">
-                                </div>
+                                <a href="<?php the_post_thumbnail_url('full'); ?>" data-gallery="certificates" class="content-block-carousel__item content-block-carousel__item--certificate swiper-slide">
+									<div class="img-content">
+                                    	<img src="<?php the_post_thumbnail_url('large'); ?>" alt="<?php the_title(); ?>">
+									</div>
+                                </a>
                             <?php endwhile;
                             wp_reset_postdata(); ?>
                         </div>

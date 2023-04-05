@@ -29,7 +29,9 @@ function register_post_types(){
 		'supports'            => [ 'title', 'editor'], // 'title','editor','author','thumbnail','excerpt','trackbacks','custom-fields','comments','revisions','page-attributes','post-formats'
 		'taxonomies'          => [],
 		'has_archive'         => false,
-		'rewrite'             => true,
+		'rewrite'             => [
+			'with_front' => false
+		],
 		'query_var'           => true,
 		'with_front' 		  => false
 	] );
@@ -59,9 +61,10 @@ function register_post_types(){
 		'supports'            => [ 'title', 'thumbnail'], // 'title','editor','author','thumbnail','excerpt','trackbacks','custom-fields','comments','revisions','page-attributes','post-formats'
 		'taxonomies'          => [],
 		'has_archive'         => true,
-		'rewrite'             => true,
+		'rewrite'             => [
+			'with_front' => false
+		],
 		'query_var'           => true,
-		'with_front' 		  => false
 	] );
 
     register_post_type( 'testimonial', [
@@ -89,9 +92,10 @@ function register_post_types(){
 		'supports'            => [ 'title', 'thumbnail'], // 'title','editor','author','thumbnail','excerpt','trackbacks','custom-fields','comments','revisions','page-attributes','post-formats'
 		'taxonomies'          => [],
 		'has_archive'         => true,
-		'rewrite'             => true,
+		'rewrite'             => [
+			'with_front' => false
+		],
 		'query_var'           => true,
-		'with_front' 		  => false
 	] );
 
 	register_post_type( 'certificate', [
@@ -119,9 +123,10 @@ function register_post_types(){
 		'supports'            => [ 'title', 'thumbnail'], // 'title','editor','author','thumbnail','excerpt','trackbacks','custom-fields','comments','revisions','page-attributes','post-formats'
 		'taxonomies'          => [],
 		'has_archive'         => true,
-		'rewrite'             => true,
+		'rewrite'             => [
+			'with_front' => false
+		],
 		'query_var'           => true,
-		'with_front' 		  => false
 	] );
 
 	register_post_type( 'dealer', [
@@ -149,9 +154,10 @@ function register_post_types(){
 		'supports'            => [ 'title', 'thumbnail'], // 'title','editor','author','thumbnail','excerpt','trackbacks','custom-fields','comments','revisions','page-attributes','post-formats'
 		'taxonomies'          => [],
 		'has_archive'         => false,
-		'rewrite'             => true,
+		'rewrite'             => [
+			'with_front' => false
+		],
 		'query_var'           => true,
-		'with_front' 		  => false
 	] );
 
 }

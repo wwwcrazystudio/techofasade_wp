@@ -23,20 +23,20 @@ $query = new WP_Query($args); ?>
             <?php if ($query->have_posts()) : ?>
                 <div class="certificates-page__list-wrap">
                     <ul class="certificates-page__list" data-container>
-                        <?php while ($query->have_posts()) :
+                        <?php $i = 1; while ($query->have_posts()) :
                             $query->the_post(); ?>
                             <li class="certificates-page__certificate-item certificate-item">
                                 <a href="<?php the_post_thumbnail_url('full'); ?>" class="certificate-item__link" data-gallery="certificates" data-caption="<?php the_title(); ?>">
                                     <figure class="certificate-item__img-wrap">
                                         <picture class="certificate-item__img">
                                             <source srcset="<?php the_post_thumbnail_url('large'); ?>.webp" type="image/webp">
-                                            <img src="<?php the_post_thumbnail_url('large'); ?>" alt="<?php the_title(); ?>">
+                                            <img <?= $i > 3 ? 'loading="lazy"' : null;?> src="<?php the_post_thumbnail_url('large'); ?>" alt="<?php the_title(); ?>">
                                         </picture>
                                         <figcaption class="certificate-item__caption"><?php the_title(); ?></figcaption>
                                     </figure>
                                 </a>
                             </li>
-                        <?php endwhile;
+                        <?php $i++; endwhile;
                         wp_reset_postdata(); ?>
                     </ul>
 

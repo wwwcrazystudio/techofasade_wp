@@ -45,7 +45,7 @@ if ($query->have_posts()) : ?>
                                         <li class="product-item__carousel-item swiper-slide">
                                             <picture>
                                                 <source srcset="<?= wp_get_attachment_image_url($item, 'full'); ?>.webp" type="image/webp">
-                                                <img src="<?= wp_get_attachment_image_url($item, 'full'); ?>" alt="<?= get_post_meta($item, '_wp_attachment_image_alt', true); ?>">
+                                                <img loading="lazy" src="<?= wp_get_attachment_image_url($item, 'full'); ?>" alt="<?= get_post_meta($item, '_wp_attachment_image_alt', true); ?>">
                                             </picture>
                                         </li>
                                     <?php endforeach; ?>
@@ -94,7 +94,7 @@ if ($query->have_posts()) : ?>
                                                     <figure class="feature-item__content-item">
                                                         <picture class="feature-item__content-item-img">
                                                             <source srcset="<?= wp_get_attachment_image_url($value['img'], 'full'); ?>.webp" type="image/webp">
-                                                            <img src="<?= wp_get_attachment_image_url($value['img'], 'full'); ?>" alt="<?= get_post_meta($value['img'], '_wp_attachment_image_alt', true); ?>">
+                                                            <img loading="lazy" src="<?= wp_get_attachment_image_url($value['img'], 'full'); ?>" alt="<?= get_post_meta($value['img'], '_wp_attachment_image_alt', true); ?>">
                                                         </picture>
                                                         <figcaption>
                                                             <?= $value['title']; ?>

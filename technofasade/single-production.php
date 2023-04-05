@@ -110,7 +110,7 @@
                                     <div class="tabs__carousel-wrap swiper-wrapper">
                                         <?php foreach ($videos as $vid) : ?>
                                             <div class="tabs__carousel-item swiper-slide">
-                                                <iframe width="100" height="100" src="<?= $vid['link']; ?>" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                                                <iframe width="100" height="100" loading="lazy" src="<?= $vid['link']; ?>" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                                             </div>
                                         <?php endforeach; ?>
                                     </div>
@@ -126,7 +126,7 @@
                                             <div class="tabs__carousel-item swiper-slide">
                                                 <picture>
                                                     <source srcset="<?= wp_get_attachment_image_url($img, 'large'); ?>.webp" type="image/webp">
-                                                    <img src="<?= wp_get_attachment_image_url($img, 'large'); ?>" alt="<?= get_post_meta($img, '_wp_attachment_image_alt', true); ?>">
+                                                    <img loading="lazy" src="<?= wp_get_attachment_image_url($img, 'large'); ?>" alt="<?= get_post_meta($img, '_wp_attachment_image_alt', true); ?>">
                                                 </picture>
                                             </div>
                                         <?php endforeach; ?>

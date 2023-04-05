@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const loadMoreBtns = document.querySelectorAll('[data-load-more]') 
     const successModal = document.querySelector('#success-modal')
     const forms = document.querySelectorAll('[data-form]')
+	const testimonialsReadLinks = document.querySelectorAll('[data-testimonial]')
     const ajaxUrl = window.ajax.url
 
     loadMoreBtns.forEach((btn) => {
@@ -33,10 +34,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
     forms.forEach((form) => {
         form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-
+            e.preventDefault();	
+		
             const body = new FormData(form)
             body.append('action', 'contact_form')
+			
+			const inputs = form.querySelectorAll('input')
+			let valid = true
+	
+			inputs.forEach(input => {
+				input.closest('.input')?.classList.remove('input--error')
+				
+				if (input.minLength !== -1) {
+					if (input.value.length < input.minLength) {
+						input.closest('.input')?.classList.add('input--error')
+						input.focus()
+						valid = false
+					}
+				}
+			})
+				
+			if (!valid) return
 
             const req = await fetch(ajaxUrl, {
                 method: 'POST',
@@ -64,4 +82,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
         })
     });
+	
+	testimonialsReadLinks.forEach((el) => {
+		const testimonialModal = document.querySelector('#testimonial-modal')
+		const modalContent = testimonialModal.querySelector('[data-testimonial-content]')
+		
+		if (!testimonialModal) return
+		
+		el.addEventListener('click', async (e) => {
+			e.preventDefault();
+			
+			const id = el.dataset.testimonial
+			if (!id) return
+			
+			const body = new FormData()
+            body.append('action', 'get_full_testimonial')
+			body.append('id', id)
+
+            const req = await fetch(ajaxUrl, {
+                method: 'POST',
+                body
+            })
+			
+			const resp = await req.text()
+			
+			modalContent.innerHTML = resp
+			
+			testimonialModal.showModal()
+			
+		})
+	})	
+	
 })

@@ -24,17 +24,17 @@ $query = new WP_Query($args); ?>
             <?php if ($query->have_posts()) : ?>
                 <div class="portfolio-page__gallery gallery">
                     <ul class="gallery__list" data-container>
-                        <?php while ($query->have_posts()) :
+                        <?php $i = 1; while ($query->have_posts()) :
                             $query->the_post(); ?>
                             <li class="gallery__item">
                                 <a href="<?php the_post_thumbnail_url('full');?>" class="gallery__item-link" data-gallery="portfolio">
                                     <picture class="gallery__item-img">
                                         <source srcset="<?php the_post_thumbnail_url('large');?>.webp" type="image/webp">
-                                        <img src="<?php the_post_thumbnail_url('large');?>" alt="<?php the_title();?>">
+                                        <img <?= $i > 4 ? 'loading="lazy"' : null;?> src="<?php the_post_thumbnail_url('large');?>" alt="<?php the_title();?>">
                                     </picture>
                                 </a>
                             </li>
-                        <?php endwhile;
+                        <?php $i++; endwhile;
                         wp_reset_postdata(); ?>
                     </ul>
 
